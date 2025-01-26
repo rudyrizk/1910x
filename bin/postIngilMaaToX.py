@@ -1,0 +1,149 @@
+import requests
+import tweepy
+import re
+
+from datetime import datetime
+
+API_KEY = os.getenv('API_KEY')
+API_SECRET_KEY = os.getenv('API_SECRET_KEY')
+ACCESS_TOKEN = os.getenv('ACCESS_TOKEN')
+ACCESS_TOKEN_SECRET = os.getenv('ACCESS_TOKEN_SECRET')
+
+# Set up Twitter API authentication
+auth = tweepy.OAuth1UserHandler(
+    consumer_key=API_KEY,
+    consumer_secret=API_SECRET_KEY,
+    access_token=ACCESS_TOKEN,
+    access_token_secret=ACCESS_TOKEN_SECRET
+)
+api = tweepy.API(auth)
+
+# Initialize the Tweepy client with your Bearer Token
+client = tweepy.Client(=,
+                       consumer_key=API_KEY,
+                       consumer_secret=API_SECRET_KEY,
+                       access_token=ACCESS_TOKEN,
+                       access_token_secret=ACCESS_TOKEN_SECRET)
+
+
+# Function to fetch content from the URL
+def fetch_content():
+    # Get today's date in the format YYYYMMDD
+    today = datetime.now().strftime('%Y%m%d')
+    
+    # URL for fetching content
+    url = f"https://feed.evangelizo.org/v2/reader.php?lang=MAA&type=reading&content=GSP&date={today}"
+
+    # Send GET request to the URL
+    response = requests.get(url)
+
+    # Check if request was successful
+    if response.status_code == 200:
+        # Get the response text
+        content = response.text
+        
+        # Use regular expression to remove everything starting from "النصوص مأخوذة من الترجمة" onward
+        #cleaned_content = re.sub(r'<br />*', '', content)
+        # Remove all <br />, <br> or <br/> tags
+        cleaned_content = re.sub(r'<br\s*/?>', '', content)
+
+        cleaned_content = re.split(r'النصوص مأخوذة من الترجمة', cleaned_content)[0]
+
+        # Return the cleaned content (everything before the specified text)
+        return cleaned_content
+    else:
+        print("Failed to retrieve content.")
+        return None
+
+# Function to fetch content from a URL
+def fetch_content(url):
+    # Send GET request to the URL
+    response = requests.get(url)
+
+    # Check if request was successful
+    if response.status_code == 200:
+        # Get the response text
+        content = response.text
+        
+        # Remove everything after "النصوص مأخوذة من الترجمة"
+        #cleaned_content = re.split(r'النصوص مأخوذة من الترجمة', content)[0]
+        cleaned_content = re.sub(r'<br\s*/?>', '', content)
+        cleaned_content = re.split(r'النصوص مأخوذة من الترجمة', cleaned_content)[0]
+
+        # Parse the HTML to remove all HTML tags
+        #soup = BeautifulSoup(cleaned_content, 'html.parser')
+        #cleaned_content = soup.get_text()  # Extract just the text
+        
+        return cleaned_content
+    else:
+        print(f"Failed to retrieve content from {url}.")
+        return None
+
+# Function to get today's dynamic date
+def get_today_date():
+    return datetime.now().strftime('%Y%m%d')
+
+# Function to get the dynamically formatted date for the final URL
+def get_formatted_date():
+    return datetime.now().strftime('%Y-%m-%d')
+
+# Function to combine the contents and return the final result
+def get_combined_content():
+    # Get today's dynamic date
+    today = get_today_date()
+
+    # URLs for fetching content
+    url1 = f"https://feed.evangelizo.org/v2/reader.php?lang=MAA&type=reading&content=GSP&date={today}"
+    url2 = f"https://feed.evangelizo.org/v2/reader.php?date={today}&lang=MAA&type=liturgic_t&content=GSP"
+
+    # Fetch and clean the content from both URLs
+    content1 = fetch_content(url1)
+    content2 = fetch_content(url2)
+
+    if content1 and content2:
+        # Add a break line between the two contents
+        final_content = content1 + "\n\n" + content2
+        
+        # Add the final URL at the end with the formatted date
+        formatted_date = get_formatted_date()
+        final_content += f"\nلمتابعة كافة قراءات اليوم https://alingilalyawmi.org/MAA/gospel/{formatted_date}" + "\n" + '#إنجيل #الله #يسوع '
+        #print(final_content)
+        return final_content
+    else:
+        print("Failed to retrieve or clean content.")
+        return None
+
+# Function to post content to Twitter
+def post_to_twitter(content):
+    if content:
+        try:
+            # Post the content to Twitter using API v2 (Tweepy v4.x)
+            client.create_tweet(text=content)
+            print("Successfully posted to Twitter!")
+        except tweepy.TweepError as e:
+            print(f"Error posting to Twitter: {e}")
+    else:
+        print("No content to post.")
+
+# Function to post content to Twitter
+def post_to_twitter_OLD(content):
+    if content:
+        try:
+            # Post the content to Twitter
+            api.update_status(content)
+            print("Successfully posted to Twitter!")
+        except tweepy.TweepError as e:
+            print(f"Error posting to Twitter: {e}")
+    else:
+        print("No content to post.")
+
+
+if __name__ == "__main__":
+    #post_to_twitter("alingilalyawmi.org")
+    # Example usage:
+    final_content = get_combined_content()
+    if final_content:
+        print(final_content)  # Print the final combined content
+        # Post the fetched content to Twitter
+        post_to_twitter(final_content)
+

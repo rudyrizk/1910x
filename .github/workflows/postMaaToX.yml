@@ -22,13 +22,12 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Run tests
+      - name: Run AutoPost to X script
         env:
           API_KEY: ${{ secrets.API_KEY }}  # Pass secret as an environment variable
           API_SECRET_KEY: ${{ secrets.API_SECRET_KEY }}  
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}  
           ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}  
-
         run: |
           echo "triggering postIngilMaaToX.py"
           python3 bin/postIngilMaaToX.py

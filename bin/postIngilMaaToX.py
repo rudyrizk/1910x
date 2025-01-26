@@ -1,7 +1,7 @@
 import requests
 import tweepy
 import re
-
+import os
 from datetime import datetime
 
 API_KEY = os.getenv('API_KEY')

@@ -8,6 +8,7 @@ API_KEY = os.getenv('API_KEY')
 API_SECRET_KEY = os.getenv('API_SECRET_KEY')
 ACCESS_TOKEN = os.getenv('ACCESS_TOKEN')
 ACCESS_TOKEN_SECRET = os.getenv('ACCESS_TOKEN_SECRET')
+BEARER_TOKEN = os.getenv('BEARER_TOKEN')
 
 # Set up Twitter API authentication
 auth = tweepy.OAuth1UserHandler(
@@ -19,7 +20,7 @@ auth = tweepy.OAuth1UserHandler(
 api = tweepy.API(auth)
 
 # Initialize the Tweepy client with your Bearer Token
-client = tweepy.Client(=,
+client = tweepy.Client(bearer_token=BEARER_TOKEN,
                        consumer_key=API_KEY,
                        consumer_secret=API_SECRET_KEY,
                        access_token=ACCESS_TOKEN,

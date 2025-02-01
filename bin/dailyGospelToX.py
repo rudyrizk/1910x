@@ -146,4 +146,4 @@ if __name__ == "__main__":
     if final_content:
         print(final_content)  # Print the final combined content
         # Post the fetched content to Twitter
-        post_to_twitter(final_content)
+        post_to_twitter("www.dailygospel.org")

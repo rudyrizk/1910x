@@ -27,35 +27,6 @@ client = tweepy.Client(bearer_token=BEARER_TOKEN,
                        access_token_secret=ACCESS_TOKEN_SECRET)
 
 
-# Function to fetch content from the URL
-def fetch_content():
-    # Get today's date in the format YYYYMMDD
-    today = datetime.now().strftime('%Y%m%d')
-    
-    # URL for fetching content
-    url = f"https://feed.evangelizo.org/v2/reader.php?lang=AM&type=reading&content=GSP&date={today}"
-
-    # Send GET request to the URL
-    response = requests.get(url)
-
-    # Check if request was successful
-    if response.status_code == 200:
-        # Get the response text
-        content = response.text
-        
-        # Use regular expression to remove everything starting from "النصوص مأخوذة من الترجمة" onward
-        #cleaned_content = re.sub(r'<br />*', '', content)
-        # Remove all <br />, <br> or <br/> tags
-        cleaned_content = re.sub(r'<br\s*/?>', '', content)
-
-        cleaned_content = re.split(r'النصوص مأخوذة من الترجمة', cleaned_content)[0]
-
-        # Return the cleaned content (everything before the specified text)
-        return cleaned_content
-    else:
-        print("Failed to retrieve content.")
-        return None
-
 # Function to fetch content from a URL
 def fetch_content(url):
     # Send GET request to the URL
@@ -67,9 +38,8 @@ def fetch_content(url):
         content = response.text
         
         # Remove everything after "النصوص مأخوذة من الترجمة"
-        #cleaned_content = re.split(r'النصوص مأخوذة من الترجمة', content)[0]
         #cleaned_content = re.sub(r'<br\s*/?>', '', content)
-        cleaned_content = re.split(r'Copyright © Confraternity', cleaned_content)[0]
+        cleaned_content = re.split(r'Copyright © Confraternity', content)[0]
 
         # Parse the HTML to remove all HTML tags
         #soup = BeautifulSoup(cleaned_content, 'html.parser')

@@ -78,7 +78,7 @@ def get_combined_content():
         
         # Add the final URL at the end with the formatted date
         formatted_date = get_formatted_date()
-        final_content += f"\nContinue all of today's readings https://alingilalyawmi.org/MAA/gospel/{formatted_date}" + "\n" + '#dailygospel #jesus #gospel'
+        final_content += f"\nContinue all of today's readings https://dailygospel.org/AM/gospel/{formatted_date}" + "\n" +"\n" + '#dailygospel #jesus #gospel'
         #print(final_content)
         return final_content
     else:

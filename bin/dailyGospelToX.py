@@ -38,8 +38,9 @@ def fetch_content(url):
         content = response.text
         
         # Remove everything after "النصوص مأخوذة من الترجمة"
-        #cleaned_content = re.sub(r'<br\s*/?>', '', content)
-        cleaned_content = re.split(r'Copyright © Confraternity', content)[0]
+        cleaned_content = re.sub(r'<br\s*/?>', '', content)
+        cleaned_content = re.sub(r'&quot;', '', content)
+        cleaned_content = re.split(r'Copyright © Confraternity', cleaned_content)[0]
 
         # Parse the HTML to remove all HTML tags
         #soup = BeautifulSoup(cleaned_content, 'html.parser')

@@ -26,8 +26,8 @@ jobs:
         env:
           API_KEY: ${{ secrets.API_KEY }}  # Pass secret as an environment variable
           API_SECRET_KEY: ${{ secrets.API_SECRET_KEY }}  
-          ACCESS_TOKEN_AM: ${{ secrets.ACCESS_TOKEN }}  
-          ACCESS_TOKEN_SECRET_AM: ${{ secrets.ACCESS_TOKEN_SECRET }}  
+          ACCESS_TOKEN_AM: ${{ secrets.ACCESS_TOKEN_AM }}  
+          ACCESS_TOKEN_SECRET_AM: ${{ secrets.ACCESS_TOKEN_SECRET_AM }}  
           BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}  
         run: |
           echo "triggering daily gospel AM"

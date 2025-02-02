@@ -39,7 +39,7 @@ def fetch_content(url):
         
         # Remove everything after "النصوص مأخوذة من الترجمة"
         cleaned_content = re.sub(r'<br\s*/?>', '', content)
-        cleaned_content = re.sub(r'&quot;', '', content)
+        cleaned_content = re.sub(r'&quot;', '', cleaned_content)
         cleaned_content = re.split(r'Copyright © Confraternity', cleaned_content)[0]
 
         # Parse the HTML to remove all HTML tags
@@ -117,4 +117,4 @@ if __name__ == "__main__":
     if final_content:
         print(final_content)  # Print the final combined content
         # Post the fetched content to Twitter
-        post_to_twitter("www.dailygospel.org")
+        #post_to_twitter("www.dailygospel.org")

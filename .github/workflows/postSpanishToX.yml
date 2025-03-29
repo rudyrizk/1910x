@@ -1,0 +1,32 @@
+name: Post Daily Gospel AM to X Workflow
+
+on:
+  workflow_dispatch:  # Allow manual trigger from the GitHub UI
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run AutoPost to X script
+        env:
+          API_KEY: ${{ secrets.API_KEY }}  # Pass secret as an environment variable
+          API_SECRET_KEY: ${{ secrets.API_SECRET_KEY }}  
+          ACCESS_TOKEN_SP: ${{ secrets.ACCESS_TOKEN_SP }}  
+          ACCESS_TOKEN_SECRET_SP: ${{ secrets.ACCESS_TOKEN_SECRET_SP }}  
+          BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}  
+        run: |
+          echo "triggering daily gospel sp - Spanish"
+          python3 bin/postingSpanishTox.py

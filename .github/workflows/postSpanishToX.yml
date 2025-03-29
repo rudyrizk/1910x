@@ -1,4 +1,4 @@
-name: Post Daily Gospel AM to X Workflow
+name: Post Spanish Daily Gospel SP to X Workflow
 
 on:
   workflow_dispatch:  # Allow manual trigger from the GitHub UI

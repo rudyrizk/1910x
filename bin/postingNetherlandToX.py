@@ -8,31 +8,31 @@ API_KEY = os.getenv('API_KEY')
 API_SECRET_KEY = os.getenv('API_SECRET_KEY')
 ACCESS_TOKEN = os.getenv('ACCESS_TOKEN_NL')
 ACCESS_TOKEN_SECRET = os.getenv('ACCESS_TOKEN_SECRET_NL')
-# BEARER_TOKEN = os.getenv('BEARER_TOKEN')
+BEARER_TOKEN = os.getenv('BEARER_TOKEN')
 
-# # Set up Twitter API authentication
-# auth = tweepy.OAuth1UserHandler(
-#     consumer_key=API_KEY,
-#     consumer_secret=API_SECRET_KEY,
-#     access_token=ACCESS_TOKEN,
-#     access_token_secret=ACCESS_TOKEN_SECRET
-# )
-# api = tweepy.API(auth)
-
-# # Initialize the Tweepy client with your Bearer Token
-# client = tweepy.Client(bearer_token=BEARER_TOKEN,
-#                        consumer_key=API_KEY,
-#                        consumer_secret=API_SECRET_KEY,
-#                        access_token=ACCESS_TOKEN,
-#                        access_token_secret=ACCESS_TOKEN_SECRET)
-
-# Initialize Tweepy Client for v2 (do NOT include bearer_token for posting)
-client = tweepy.Client(
+# Set up Twitter API authentication
+auth = tweepy.OAuth1UserHandler(
     consumer_key=API_KEY,
     consumer_secret=API_SECRET_KEY,
     access_token=ACCESS_TOKEN,
     access_token_secret=ACCESS_TOKEN_SECRET
 )
+api = tweepy.API(auth)
+
+# Initialize the Tweepy client with your Bearer Token
+client = tweepy.Client(bearer_token=BEARER_TOKEN,
+                       consumer_key=API_KEY,
+                       consumer_secret=API_SECRET_KEY,
+                       access_token=ACCESS_TOKEN,
+                       access_token_secret=ACCESS_TOKEN_SECRET)
+
+# Initialize Tweepy Client for v2 (do NOT include bearer_token for posting)
+# client = tweepy.Client(
+#     consumer_key=API_KEY,
+#     consumer_secret=API_SECRET_KEY,
+#     access_token=ACCESS_TOKEN,
+#     access_token_secret=ACCESS_TOKEN_SECRET
+# )
 
 # Function to fetch content from a URL
 def fetch_content(url):
@@ -98,14 +98,14 @@ def post_to_twitter(content):
     if content:
         try:
             # Post the content to Twitter using API v2 (Tweepy v4.x)
-            # client.create_tweet(text=content)
-            # print("Successfully posted to Twitter!")
-            response = client.create_tweet(text=content)
-            print("Successfully posted:", response)
-        except Exception as e:
-            print("Failed to post:", e)
-        # except tweepy.TweepError as e:
-        #     print(f"Error posting to Twitter: {e}")
+            client.create_tweet(text=content)
+            print("Successfully posted to Twitter!")
+            # response = client.create_tweet(text=content)
+            # print("Successfully posted:", response)
+        # except Exception as e:
+        #     print("Failed to post:", e)
+        except tweepy.TweepError as e:
+            print(f"Error posting to Twitter: {e}")
     else:
         print("No content to post.")
 
@@ -129,4 +129,5 @@ if __name__ == "__main__":
     if final_content:
         print(final_content)  # Print the final combined content
         # Post the fetched content to Twitter
-        post_to_twitter('Heer, naar wie zouden we gaan? Gij hebt woorden van eeuwig leven.')
+        post_to_twitter(final_content)
+        # post_to_twitter('Heer, naar wie zouden we gaan? Gij hebt woorden van eeuwig leven.')

@@ -20,8 +20,7 @@ auth = tweepy.OAuth1UserHandler(
 api = tweepy.API(auth)
 
 # Initialize the Tweepy client with your Bearer Token
-client = tweepy.Client(bearer_token=BEARER_TOKEN,
-                       consumer_key=API_KEY,
+client = tweepy.Client(consumer_key=API_KEY,
                        consumer_secret=API_SECRET_KEY,
                        access_token=ACCESS_TOKEN,
                        access_token_secret=ACCESS_TOKEN_SECRET)
@@ -118,4 +117,4 @@ if __name__ == "__main__":
     if final_content:
         print(final_content)  # Print the final combined content
         # Post the fetched content to Twitter
-        post_to_twitter_OLD(final_content)
+        post_to_twitter(final_content)

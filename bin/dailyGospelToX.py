@@ -6,18 +6,10 @@ from datetime import datetime
 
 API_KEY = os.getenv('API_KEY')
 API_SECRET_KEY = os.getenv('API_SECRET_KEY')
+BEARER_TOKEN = os.getenv('BEARER_TOKEN')
+# @todo CUSTOMIZE THESE TWO ENVS BELOW
 ACCESS_TOKEN = os.getenv('ACCESS_TOKEN_AM')
 ACCESS_TOKEN_SECRET = os.getenv('ACCESS_TOKEN_SECRET_AM')
-BEARER_TOKEN = os.getenv('BEARER_TOKEN')
-
-# Set up Twitter API authentication
-auth = tweepy.OAuth1UserHandler(
-    consumer_key=API_KEY,
-    consumer_secret=API_SECRET_KEY,
-    access_token=ACCESS_TOKEN,
-    access_token_secret=ACCESS_TOKEN_SECRET
-)
-api = tweepy.API(auth)
 
 # Initialize the Tweepy client with your Bearer Token
 client = tweepy.Client(bearer_token=BEARER_TOKEN,
@@ -36,7 +28,8 @@ def fetch_content(url):
     if response.status_code == 200:
         # Get the response text
         content = response.text
-        
+
+        # @todo CUSTOMIZE THESE BELOW
         # Remove everything after "النصوص مأخوذة من الترجمة"
         cleaned_content = re.sub(r'<br\s*/?>', '', content)
         cleaned_content = re.sub(r'&quot;', '', cleaned_content)
@@ -65,6 +58,7 @@ def get_combined_content():
     # Get today's dynamic date
     today = get_today_date()
 
+    # @todo CUSTOMIZE "lang" VALUE BELOW IN BOTH URLS 
     # URLs for fetching content
     url1 = f"https://feed.evangelizo.org/v2/reader.php?lang=AM&type=reading&content=GSP&date={today}"
     url2 = f"https://feed.evangelizo.org/v2/reader.php?date={today}&lang=AM&type=liturgic_t&content=GSP"
@@ -79,6 +73,7 @@ def get_combined_content():
         
         # Add the final URL at the end with the formatted date
         formatted_date = get_formatted_date()
+        # @todo CUSTOMIZE THis final_content FOOTER BELOW
         final_content += f"\nContinue all of today's readings https://dailygospel.org/AM/gospel/{formatted_date}" + "\n" +"\n" + '#dailygospel #jesus #gospel'
         #print(final_content)
         return final_content
@@ -98,22 +93,7 @@ def post_to_twitter(content):
     else:
         print("No content to post.")
 
-# Function to post content to Twitter
-def post_to_twitter_OLD(content):
-    if content:
-        try:
-            # Post the content to Twitter
-            api.update_status(content)
-            print("Successfully posted to Twitter!")
-        except tweepy.TweepError as e:
-            print(f"Error posting to Twitter: {e}")
-    else:
-        print("No content to post.")
-
-
 if __name__ == "__main__":
-    #post_to_twitter("alingilalyawmi.org")
-    # Example usage:
     final_content = get_combined_content()
     if final_content:
         print(final_content)  # Print the final combined content

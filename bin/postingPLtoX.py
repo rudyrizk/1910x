@@ -1,0 +1,98 @@
+import requests
+import tweepy
+import re
+import os
+from datetime import datetime
+
+API_KEY = os.getenv('API_KEY')
+API_SECRET_KEY = os.getenv('API_SECRET_KEY')
+BEARER_TOKEN = os.getenv('BEARER_TOKEN')
+# @todo CUSTOMIZE THESE TWO ENVS BELOW
+ACCESS_TOKEN = os.getenv('ACCESS_TOKEN_PL')
+ACCESS_TOKEN_SECRET = os.getenv('ACCESS_TOKEN_SECRET_PL')
+
+# Initialize the Tweepy client with your Bearer Token
+client = tweepy.Client(bearer_token=BEARER_TOKEN,
+                       consumer_key=API_KEY,
+                       consumer_secret=API_SECRET_KEY,
+                       access_token=ACCESS_TOKEN,
+                       access_token_secret=ACCESS_TOKEN_SECRET)
+
+
+# Function to fetch content from a URL
+def fetch_content(url):
+    # Send GET request to the URL
+    response = requests.get(url)
+
+    # Check if request was successful
+    if response.status_code == 200:
+        # Get the response text
+        content = response.text
+
+        # @todo CUSTOMIZE THESE BELOW
+        # Remove everything after "النصوص مأخوذة من الترجمة"
+        cleaned_content = re.sub(r'Fragment liturgicznego tłumaczenia', '', content)
+
+        # Parse the HTML to remove all HTML tags
+        #soup = BeautifulSoup(cleaned_content, 'html.parser')
+        #cleaned_content = soup.get_text()  # Extract just the text
+        
+        return cleaned_content
+    else:
+        print(f"Failed to retrieve content from {url}.")
+        return None
+
+# Function to get today's dynamic date
+def get_today_date():
+    return datetime.now().strftime('%Y%m%d')
+
+# Function to get the dynamically formatted date for the final URL
+def get_formatted_date():
+    return datetime.now().strftime('%Y-%m-%d')
+
+# Function to combine the contents and return the final result
+def get_combined_content():
+    # Get today's dynamic date
+    today = get_today_date()
+
+    # @todo CUSTOMIZE "lang" VALUE BELOW IN BOTH URLS 
+    # URLs for fetching content
+    url1 = f"https://feed.evangelizo.org/v2/reader.php?lang=PL&type=reading&content=GSP&date={today}"
+    url2 = f"https://feed.evangelizo.org/v2/reader.php?date={today}&lang=PL&type=liturgic_t&content=GSP"
+
+    # Fetch and clean the content from both URLs
+    content1 = fetch_content(url1)
+    content2 = fetch_content(url2)
+
+    if content1 and content2:
+        # Add a break line between the two contents
+        final_content = content1 + "\n\n" + content2
+        
+        # Add the final URL at the end with the formatted date
+        formatted_date = get_formatted_date()
+        # @todo CUSTOMIZE THis final_content FOOTER BELOW
+        final_content += f"\nCzytaj więcej: https://ewangelia.org/PL/gospel/{formatted_date}" + "\n" +"\n" + '#ewangelia #jezus #dobranowina #ewangelianacodzien #ewangeliadzis'
+        #print(final_content)
+        return final_content
+    else:
+        print("Failed to retrieve or clean content.")
+        return None
+
+# Function to post content to Twitter
+def post_to_twitter(content):
+    if content:
+        try:
+            # Post the content to Twitter using API v2 (Tweepy v4.x)
+            client.create_tweet(text=content)
+            print("Successfully posted to Twitter!")
+        except tweepy.TweepError as e:
+            print(f"Error posting to Twitter: {e}")
+    else:
+        print("No content to post.")
+
+if __name__ == "__main__":
+    final_content = get_combined_content()
+    if final_content:
+        print(final_content)  # Print the final combined content
+        # Post the fetched content to Twitter
+        post_to_twitter(final_content)

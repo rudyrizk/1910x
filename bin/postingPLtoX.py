@@ -34,7 +34,7 @@ def fetch_content(url):
         cleaned_content = re.sub(r'<br\s*/?>', '', content)
         cleaned_content = re.sub(r'&quot;', '', cleaned_content)
         cleaned_content = re.sub(r'&#039;', "'", cleaned_content)
-        cleaned_content = re.split(r'liturgicznego tłumaczenia Biblii', cleaned_content)[0]
+        cleaned_content = re.split(r'Fragment liturgicznego tłumaczenia Biblii Tysiąclecia', cleaned_content)[0]
 
         # Parse the HTML to remove all HTML tags
         #soup = BeautifulSoup(cleaned_content, 'html.parser')

@@ -31,7 +31,7 @@ def fetch_content(url):
 
         # @todo CUSTOMIZE THESE BELOW
         # Remove everything after "النصوص مأخوذة من الترجمة"
-        cleaned_content = re.sub(r'Fragment liturgicznego tłumaczenia', '', content)
+        cleaned_content = re.sub(r'<br /><br />', '', content)
 
         # Parse the HTML to remove all HTML tags
         #soup = BeautifulSoup(cleaned_content, 'html.parser')

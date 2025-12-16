@@ -31,10 +31,11 @@ def fetch_content(url):
 
         # @todo CUSTOMIZE THESE BELOW
         # Remove everything after "النصوص مأخوذة من الترجمة"
-        cleaned_content = re.sub(r'<br /><br />', '', content)
-        cleaned_content = re.sub(r'<br />Fragment', '', cleaned_content)
-        cleaned_content = re.sub(r'<br />By codziennie', "'", cleaned_content)
-      
+        cleaned_content = re.sub(r'<br\s*/?>', '', content)
+        cleaned_content = re.sub(r'&quot;', '', cleaned_content)
+        cleaned_content = re.sub(r'&#039;', "'", cleaned_content)
+        cleaned_content = re.split(r'Copyright © Confraternity', cleaned_content)[0]
+
         # Parse the HTML to remove all HTML tags
         #soup = BeautifulSoup(cleaned_content, 'html.parser')
         #cleaned_content = soup.get_text()  # Extract just the text
@@ -59,8 +60,8 @@ def get_combined_content():
 
     # @todo CUSTOMIZE "lang" VALUE BELOW IN BOTH URLS 
     # URLs for fetching content
-    url1 = f"https://feed.evangelizo.org/v2/reader.php?lang=PL&type=reading&content=GSP&date={today}"
-    url2 = f"https://feed.evangelizo.org/v2/reader.php?date={today}&lang=PL&type=liturgic_t&content=GSP"
+    url1 = f"https://feed.evangelizo.org/v2/reader.php?lang=AM&type=reading&content=GSP&date={today}"
+    url2 = f"https://feed.evangelizo.org/v2/reader.php?date={today}&lang=AM&type=liturgic_t&content=GSP"
 
     # Fetch and clean the content from both URLs
     content1 = fetch_content(url1)
@@ -73,7 +74,7 @@ def get_combined_content():
         # Add the final URL at the end with the formatted date
         formatted_date = get_formatted_date()
         # @todo CUSTOMIZE THis final_content FOOTER BELOW
-        final_content += f"\nCzytaj więcej: https://ewangelia.org/PL/gospel/{formatted_date}" + "\n" +"\n" + '#ewangelia #jezus #dobranowina #ewangelianacodzien #ewangeliadzis'
+        final_content += f"\nContinue all of today's readings https://dailygospel.org/AM/gospel/{formatted_date}" + "\n" +"\n" + '#dailygospel #jesus #gospel'
         #print(final_content)
         return final_content
     else:
@@ -93,9 +94,9 @@ def post_to_twitter(content):
         print("No content to post.")
 
 if __name__ == "__main__":
-    final_content = get_combined_content()
-    if final_content:
-        print(final_content)  # Print the final combined content
-        # Post the fetched content to Twitter
-        # post_to_twitter(final_content)
-        post_to_twitter("Hello!")
+    post_to_twitter("Hello")
+    # final_content = get_combined_content()
+    # if final_content:
+    #     print(final_content)  # Print the final combined content
+    #     # Post the fetched content to Twitter
+    #     post_to_twitter(final_content)

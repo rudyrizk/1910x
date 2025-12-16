@@ -93,9 +93,8 @@ def post_to_twitter(content):
         print("No content to post.")
 
 if __name__ == "__main__":
-    post_to_twitter("Hello")
-    # final_content = get_combined_content()
-    # if final_content:
-    #     print(final_content)  # Print the final combined content
-    #     # Post the fetched content to Twitter
-    #     post_to_twitter(final_content)
+    final_content = get_combined_content()
+    if final_content:
+        print(final_content)  # Print the final combined content
+        # Post the fetched content to Twitter
+        post_to_twitter(final_content)

@@ -37,7 +37,7 @@ def fetch_content():
 
     # Send GET request to the URL
     response = requests.get(url)
-
+    
     # Check if request was successful
     if response.status_code == 200:
         # Get the response text
@@ -60,7 +60,10 @@ def fetch_content():
 def fetch_content(url):
     # Send GET request to the URL
     response = requests.get(url)
-    content = response.text
+    content = response
+    code = response.status_code
+    json = response.json
+    
     # Check if request was successful
     if response.status_code == 200:
         # Get the response text
@@ -79,6 +82,9 @@ def fetch_content(url):
     else:
         print(f"Failed to retrieve content from {url}.")
         print(f"response: {content}")
+        print(f"response: {error code}")
+        print(f"response: {response json}")
+        
         return None
 
 # Function to get today's dynamic date

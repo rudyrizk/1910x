@@ -82,7 +82,7 @@ def fetch_content(url):
     else:
         print(f"Failed to retrieve content from {url}.")
         print(f"response: {content}")
-        print(f"response: {error code}")
+        print(f"response: {code}")
         print(f"response: {response json}")
         
         return None

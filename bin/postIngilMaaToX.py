@@ -60,7 +60,7 @@ def fetch_content():
 def fetch_content(url):
     # Send GET request to the URL
     response = requests.get(url)
-
+    content = response.text
     # Check if request was successful
     if response.status_code == 200:
         # Get the response text

@@ -4,6 +4,7 @@ import re
 import os
 from datetime import datetime
 import traceback
+import time
 
 API_KEY = os.getenv('API_KEY')
 API_SECRET_KEY = os.getenv('API_SECRET_KEY')
@@ -86,7 +87,7 @@ def fetch_content(url):
     print("=" * 80)
     print(f"[INFO] Starting fetch_content()")
     print(f"[INFO] URL: {url}")
-    print(f"[INFO] Timestamp: {time.strftime('%Y-%m-%d %H:%M:%S')}")
+    # print(f"[INFO] Timestamp: {time.strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 80)
 
     start_time = time.time()

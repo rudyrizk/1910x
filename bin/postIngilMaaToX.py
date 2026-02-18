@@ -3,6 +3,7 @@ import tweepy
 import re
 import os
 from datetime import datetime
+import traceback
 
 API_KEY = os.getenv('API_KEY')
 API_SECRET_KEY = os.getenv('API_SECRET_KEY')
@@ -57,12 +58,9 @@ def fetch_content():
         return None
 
 # Function to fetch content from a URL
-def fetch_content(url):
+def fetch_content_old(url):
     # Send GET request to the URL
     response = requests.get(url)
-    content = response
-    code = response.status_code
-    json = response.json
     
     # Check if request was successful
     if response.status_code == 200:
@@ -81,12 +79,107 @@ def fetch_content(url):
         return cleaned_content
     else:
         print(f"Failed to retrieve content from {url}.")
-        print(f"response: {content}")
-        print(f"response: {code}")
-        print(f"response: {json}")
         
         return None
 
+def fetch_content(url):
+    print("=" * 80)
+    print(f"[INFO] Starting fetch_content()")
+    print(f"[INFO] URL: {url}")
+    print(f"[INFO] Timestamp: {time.strftime('%Y-%m-%d %H:%M:%S')}")
+    print("=" * 80)
+
+    start_time = time.time()
+
+    try:
+        print("[DEBUG] Sending GET request...")
+        response = requests.get(url, timeout=15)
+
+        duration = round(time.time() - start_time, 3)
+
+        print("[INFO] Request completed")
+        print(f"[INFO] Status Code: {response.status_code}")
+        print(f"[INFO] Duration: {duration}s")
+
+        print("[DEBUG] Response Headers:")
+        for k, v in response.headers.items():
+            print(f"    {k}: {v}")
+
+        print(f"[DEBUG] Content-Length header: {response.headers.get('Content-Length')}")
+        print(f"[DEBUG] Encoding: {response.encoding}")
+        print(f"[DEBUG] Apparent Encoding: {response.apparent_encoding}")
+
+        print(f"[DEBUG] Raw content length: {len(response.content)} bytes")
+
+        # Try JSON safely
+        try:
+            json_data = response.json()
+            print("[DEBUG] JSON detected in response:")
+            print(json_data)
+        except Exception as json_error:
+            print("[DEBUG] Response is not valid JSON")
+            print(f"[DEBUG] JSON parsing error: {json_error}")
+
+        # Log preview of body (first 500 chars only)
+        preview = response.text[:500]
+        print("[DEBUG] Response preview (first 500 chars):")
+        print(preview)
+
+        # If success
+        if response.status_code == 200:
+            print("[INFO] Status 200 OK — processing content")
+
+            content = response.text
+
+            print("[DEBUG] Removing <br> tags...")
+            cleaned_content = re.sub(r'<br\s*/?>', '', content)
+
+            print("[DEBUG] Splitting on Arabic marker...")
+            cleaned_content = re.split(
+                r'النصوص مأخوذة من الترجمة',
+                cleaned_content
+            )[0]
+
+            print(f"[INFO] Cleaned content length: {len(cleaned_content)} chars")
+
+            return cleaned_content
+
+        else:
+            print("[ERROR] Non-200 response received")
+            print(f"[ERROR] URL: {url}")
+            print(f"[ERROR] Status Code: {response.status_code}")
+            print(f"[ERROR] Reason: {response.reason}")
+            print(f"[ERROR] Response Text: {response.text}")
+            print(f"[ERROR] Raw Bytes: {response.content}")
+
+            return None
+
+    except requests.exceptions.Timeout:
+        print("[CRITICAL] Request timed out")
+        return None
+
+    except requests.exceptions.ConnectionError as e:
+        print("[CRITICAL] Connection error occurred")
+        print(f"[CRITICAL] Details: {e}")
+        return None
+
+    except requests.exceptions.RequestException as e:
+        print("[CRITICAL] General request exception occurred")
+        print(f"[CRITICAL] Details: {e}")
+        return None
+
+    except Exception as e:
+        print("[FATAL] Unexpected error occurred")
+        print(f"[FATAL] Error: {e}")
+        print("[FATAL] Traceback:")
+        traceback.print_exc()
+        return None
+
+    finally:
+        total_duration = round(time.time() - start_time, 3)
+        print(f"[INFO] fetch_content() finished in {total_duration}s")
+        print("=" * 80)
+        
 # Function to get today's dynamic date
 def get_today_date():
     return datetime.now().strftime('%Y%m%d')

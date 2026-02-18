@@ -78,7 +78,7 @@ def fetch_content(url):
         return cleaned_content
     else:
         print(f"Failed to retrieve content from {url}.")
-        print(f"response: " {content}")
+        print(f"response: {content}")
         return None
 
 # Function to get today's dynamic date

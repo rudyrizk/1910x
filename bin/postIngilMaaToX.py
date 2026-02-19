@@ -59,9 +59,10 @@ def fetch_content():
         return None
 
 # Function to fetch content from a URL
-def fetch_content_old(url):
+def fetch_content(url):
     # Send GET request to the URL
     response = requests.get(url)
+    response_code = response.status_code
     
     # Check if request was successful
     if response.status_code == 200:
@@ -80,10 +81,11 @@ def fetch_content_old(url):
         return cleaned_content
     else:
         print(f"Failed to retrieve content from {url}.")
+        print(f"Response status code {response_code}.")
         
         return None
 
-def fetch_content(url):
+def fetch_content_extensive_logs(url):
     print("=" * 80)
     print(f"[INFO] Starting fetch_content()")
     print(f"[INFO] URL: {url}")

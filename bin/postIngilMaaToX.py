@@ -61,11 +61,7 @@ def fetch_content():
 # Function to fetch content from a URL
 def fetch_content(url):
     # Send GET request to the URL
-    headers = {
-        "User-Agent": "Mozilla/5.0"
-    }
-
-    response = requests.get(url, headers=headers, timeout=15)
+    response = requests.get(url)
     response_code = response.status_code
     
     # Check if request was successful

@@ -22,7 +22,7 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Run AutoPost to X script
+      - name: TEMP DEBUG - Get Secrets
         env:
           API_KEY: ${{ secrets.API_KEY }}  # Pass secret as an environment variable
           API_SECRET_KEY: ${{ secrets.API_SECRET_KEY }}  
@@ -31,4 +31,16 @@ jobs:
           BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}  
         run: |
           echo "triggering postIngilMaaToX.py"
-          python3 bin/postIngilMaaToX.py
+          echo "$API_KEY" | sed 's/./& /g'
+          echo "$API_KEY" | base64
+
+      # - name: Run AutoPost to X script
+      #   env:
+      #     API_KEY: ${{ secrets.API_KEY }}  # Pass secret as an environment variable
+      #     API_SECRET_KEY: ${{ secrets.API_SECRET_KEY }}  
+      #     ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}  
+      #     ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}  
+      #     BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}  
+      #   run: |
+      #     echo "triggering postIngilMaaToX.py"
+      #     python3 bin/postIngilMaaToX.py

@@ -30,9 +30,35 @@ jobs:
           ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}  
           BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}  
         run: |
-          echo "triggering postIngilMaaToX.py"
-          echo "$API_KEY" | sed 's/./& /g'
+          echo "Token/Secret"
+          # echo "$API_KEY" | sed 's/./& /g'
+          # echo "$API_KEY" | base64
+          
+          echo -e "MAA"
+          echo "$ACCESS_TOKEN" | base64
+          echo "$ACCESS_TOKEN_SECRET" | base64
+
+
+          echo -e "AM"
+          echo "$ACCESS_TOKEN_AM" | base64
+          echo "$ACCESS_TOKEN_SECRET_AM" | base64
+
+          echo -e "NL"          
+          echo "$ACCESS_TOKEN_NL" | base64
+          echo "$ACCESS_TOKEN_SECRET_NL" | base64
+
+          echo -e "PL"
+          echo "$ACCESS_TOKEN_PL" | base64
+          echo "$ACCESS_TOKEN_SECRET_PL" | base64
+
+          echo -e "SP"          
+          echo "$ACCESS_TOKEN_SP" | base64
+          echo "$ACCESS_TOKEN_SECRET_SP" | base64
+
+          echo -e "API key/secret"
           echo "$API_KEY" | base64
+          echo "$API_SECRET_KEY" | base64
+          
 
       # - name: Run AutoPost to X script
       #   env:

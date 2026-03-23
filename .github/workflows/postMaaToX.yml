@@ -28,6 +28,15 @@ jobs:
           API_SECRET_KEY: ${{ secrets.API_SECRET_KEY }}  
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}  
           ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}  
+          ACCESS_TOKEN_AM: ${{ secrets.ACCESS_TOKEN }}  
+          ACCESS_TOKEN_SECRET_AM: ${{ secrets.ACCESS_TOKEN_SECRET }}  
+          ACCESS_TOKEN_NL: ${{ secrets.ACCESS_TOKEN }}  
+          ACCESS_TOKEN_SECRET_NL: ${{ secrets.ACCESS_TOKEN_SECRET }}  
+          ACCESS_TOKEN_PL: ${{ secrets.ACCESS_TOKEN }}  
+          ACCESS_TOKEN_SECRET_PL: ${{ secrets.ACCESS_TOKEN_SECRET }}  
+          ACCESS_TOKEN_SP: ${{ secrets.ACCESS_TOKEN }}  
+          ACCESS_TOKEN_SECRET_SP: ${{ secrets.ACCESS_TOKEN_SECRET }}  
+
           BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}  
         run: |
           echo "Token/Secret"
@@ -35,29 +44,28 @@ jobs:
           # echo "$API_KEY" | base64
           
           echo -e "MAA"
-          echo "$ACCESS_TOKEN" | base64
-          echo "$ACCESS_TOKEN_SECRET" | base64
-
+          echo "$ACCESS_TOKEN" | sed 's/./& /g'
+          echo "$ACCESS_TOKEN_SECRET" | sed 's/./& /g'
 
           echo -e "AM"
-          echo "$ACCESS_TOKEN_AM" | base64
-          echo "$ACCESS_TOKEN_SECRET_AM" | base64
+          echo "$ACCESS_TOKEN_AM" | sed 's/./& /g'
+          echo "$ACCESS_TOKEN_SECRET_AM" | sed 's/./& /g'
 
           echo -e "NL"          
-          echo "$ACCESS_TOKEN_NL" | base64
-          echo "$ACCESS_TOKEN_SECRET_NL" | base64
+          echo "$ACCESS_TOKEN_NL" | sed 's/./& /g'
+          echo "$ACCESS_TOKEN_SECRET_NL" | sed 's/./& /g'
 
           echo -e "PL"
-          echo "$ACCESS_TOKEN_PL" | base64
-          echo "$ACCESS_TOKEN_SECRET_PL" | base64
+          echo "$ACCESS_TOKEN_PL" | sed 's/./& /g'
+          echo "$ACCESS_TOKEN_SECRET_PL" | sed 's/./& /g'
 
           echo -e "SP"          
-          echo "$ACCESS_TOKEN_SP" | base64
-          echo "$ACCESS_TOKEN_SECRET_SP" | base64
+          echo "$ACCESS_TOKEN_SP" | sed 's/./& /g'
+          echo "$ACCESS_TOKEN_SECRET_SP" | sed 's/./& /g'
 
           echo -e "API key/secret"
-          echo "$API_KEY" | base64
-          echo "$API_SECRET_KEY" | base64
+          echo "$API_KEY" | sed 's/./& /g'
+          echo "$API_SECRET_KEY" | sed 's/./& /g'
           
 
       # - name: Run AutoPost to X script

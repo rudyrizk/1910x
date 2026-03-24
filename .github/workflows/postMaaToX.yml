@@ -30,6 +30,6 @@ jobs:
            ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}  
            ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}  
            BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}  
-         run: |
-           echo "triggering postIngilMaaToX.py"
-           python3 bin/postIngilMaaToX.py
+        run: |
+          echo "triggering postIngilMaaToX.py"
+          python3 bin/postIngilMaaToX.py

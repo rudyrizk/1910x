@@ -21,60 +21,15 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
+          
 
-      - name: TEMP DEBUG - Get Secrets
+      - name: Run AutoPost to X script
         env:
-          API_KEY: ${{ secrets.API_KEY }}  # Pass secret as an environment variable
-          API_SECRET_KEY: ${{ secrets.API_SECRET_KEY }}  
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}  
-          ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}  
-          ACCESS_TOKEN_AM: ${{ secrets.ACCESS_TOKEN }}  
-          ACCESS_TOKEN_SECRET_AM: ${{ secrets.ACCESS_TOKEN_SECRET }}  
-          ACCESS_TOKEN_NL: ${{ secrets.ACCESS_TOKEN }}  
-          ACCESS_TOKEN_SECRET_NL: ${{ secrets.ACCESS_TOKEN_SECRET }}  
-          ACCESS_TOKEN_PL: ${{ secrets.ACCESS_TOKEN }}  
-          ACCESS_TOKEN_SECRET_PL: ${{ secrets.ACCESS_TOKEN_SECRET }}  
-          ACCESS_TOKEN_SP: ${{ secrets.ACCESS_TOKEN }}  
-          ACCESS_TOKEN_SECRET_SP: ${{ secrets.ACCESS_TOKEN_SECRET }}  
-
-          BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}  
-        run: |
-          echo "Token/Secret"
-          # echo "$API_KEY" | sed 's/./& /g'
-          # echo "$API_KEY" | base64
-          
-          echo -e "MAA"
-          echo "$ACCESS_TOKEN" | sed 's/./& /g'
-          echo "$ACCESS_TOKEN_SECRET" | sed 's/./& /g'
-
-          echo -e "AM"
-          echo "$ACCESS_TOKEN_AM" | sed 's/./& /g'
-          echo "$ACCESS_TOKEN_SECRET_AM" | sed 's/./& /g'
-
-          echo -e "NL"          
-          echo "$ACCESS_TOKEN_NL" | sed 's/./& /g'
-          echo "$ACCESS_TOKEN_SECRET_NL" | sed 's/./& /g'
-
-          echo -e "PL"
-          echo "$ACCESS_TOKEN_PL" | sed 's/./& /g'
-          echo "$ACCESS_TOKEN_SECRET_PL" | sed 's/./& /g'
-
-          echo -e "SP"          
-          echo "$ACCESS_TOKEN_SP" | sed 's/./& /g'
-          echo "$ACCESS_TOKEN_SECRET_SP" | sed 's/./& /g'
-
-          echo -e "API key/secret"
-          echo "$API_KEY" | sed 's/./& /g'
-          echo "$API_SECRET_KEY" | sed 's/./& /g'
-          
-
-      # - name: Run AutoPost to X script
-      #   env:
-      #     API_KEY: ${{ secrets.API_KEY }}  # Pass secret as an environment variable
-      #     API_SECRET_KEY: ${{ secrets.API_SECRET_KEY }}  
-      #     ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}  
-      #     ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}  
-      #     BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}  
-      #   run: |
-      #     echo "triggering postIngilMaaToX.py"
-      #     python3 bin/postIngilMaaToX.py
+           API_KEY: ${{ secrets.API_KEY }}  # Pass secret as an environment variable
+           API_SECRET_KEY: ${{ secrets.API_SECRET_KEY }}  
+           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}  
+           ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}  
+           BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}  
+         run: |
+           echo "triggering postIngilMaaToX.py"
+           python3 bin/postIngilMaaToX.py

@@ -25,9 +25,9 @@ jobs:
       # Step 3: Run the JAR
       - name: Run AutoAiay JAR
         run: |
-          echo "Posting to Arabic."
-          java -cp AutoAiay.jar facebook.FbPostEvzoArabic
-          sleep 10
+          # echo "Posting to Arabic."
+          # java -cp AutoAiay.jar facebook.FbPostEvzoArabic
+          # sleep 10
           echo "Posting to Greek."
           java -cp AutoAiay.jar facebook.FbPostEvzoGreekGR
           sleep 10

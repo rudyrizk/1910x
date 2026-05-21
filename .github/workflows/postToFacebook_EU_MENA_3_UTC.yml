@@ -25,45 +25,45 @@ jobs:
       # Step 3: Run the JAR
       - name: Run AutoAiay JAR
         run: |
-          echo "Posting to Arabic."
-          java -cp AutoAiay.jar facebook.FbPostEvzoArabic
-          sleep 30
-          echo "Posting to Greek."
-          java -cp AutoAiay.jar facebook.FbPostEvzoGreekGR
-          sleep 30
-          echo "Posting to French."
-          java -cp AutoAiay.jar facebook.FbPostEvzoFrench
-          sleep 30
-          echo "Posting to French Per Ipsum."
-          java -cp AutoAiay.jar facebook.FbPostEvzoPerIpsumFrench
-          sleep 30
-          echo "Posting to German."
-          java -cp AutoAiay.jar facebook.FbPostEvzoGermanDE
-          sleep 30
-          echo "Posting to Netherlands."
-          java -cp AutoAiay.jar facebook.FbPostEvzoNL
-          sleep 30
-          echo "Posting to Italy."
-          java -cp AutoAiay.jar facebook.FbPostEvzoItaly
-          sleep 30
-          echo "Posting to FbPostEvzoItalyAmbrosiano."
-          java -cp AutoAiay.jar facebook.FbPostEvzoItalyAmbrosiano
-          sleep 30
-          echo "Posting to Spanish."
-          java -cp AutoAiay.jar facebook.FbPostEvzoSpanishSP
-          sleep 30
-          echo "Posting to Polish."
-          java -cp AutoAiay.jar facebook.FbPostEvzoPolishPL
-          sleep 30
-          echo "Posting to Irish."
-          java -cp AutoAiay.jar facebook.FbPostEvzoIreland
-          sleep 30
-          echo "Posting to Portuguese."
-          java -cp AutoAiay.jar facebook.FbPostEvzoPortuguesePT
-          sleep 30
-          echo "Posting to Armenian."
-          java -cp AutoAiay.jar facebook.FbPostEvzoArmenianARM
-          sleep 30
+          # echo "Posting to Arabic."
+          # java -cp AutoAiay.jar facebook.FbPostEvzoArabic
+          # sleep 30
+          # echo "Posting to Greek."
+          # java -cp AutoAiay.jar facebook.FbPostEvzoGreekGR
+          # sleep 30
+          # echo "Posting to French."
+          # java -cp AutoAiay.jar facebook.FbPostEvzoFrench
+          # sleep 30
+          # echo "Posting to French Per Ipsum."
+          # java -cp AutoAiay.jar facebook.FbPostEvzoPerIpsumFrench
+          # sleep 30
+          # echo "Posting to German."
+          # java -cp AutoAiay.jar facebook.FbPostEvzoGermanDE
+          # sleep 30
+          # echo "Posting to Netherlands."
+          # java -cp AutoAiay.jar facebook.FbPostEvzoNL
+          # sleep 30
+          # echo "Posting to Italy."
+          # java -cp AutoAiay.jar facebook.FbPostEvzoItaly
+          # sleep 30
+          # echo "Posting to FbPostEvzoItalyAmbrosiano."
+          # java -cp AutoAiay.jar facebook.FbPostEvzoItalyAmbrosiano
+          # sleep 30
+          # echo "Posting to Spanish."
+          # java -cp AutoAiay.jar facebook.FbPostEvzoSpanishSP
+          # sleep 30
+          # echo "Posting to Polish."
+          # java -cp AutoAiay.jar facebook.FbPostEvzoPolishPL
+          # sleep 30
+          # echo "Posting to Irish."
+          # java -cp AutoAiay.jar facebook.FbPostEvzoIreland
+          # sleep 30
+          # echo "Posting to Portuguese."
+          # java -cp AutoAiay.jar facebook.FbPostEvzoPortuguesePT
+          # sleep 30
+          # echo "Posting to Armenian."
+          # java -cp AutoAiay.jar facebook.FbPostEvzoArmenianARM
+          # sleep 30
           echo "Posting to Malagasy."
           java -cp AutoAiay.jar facebook.FbPostEvzoMalagasy
           sleep 30

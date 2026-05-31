@@ -2,8 +2,8 @@ name: Post Gospel to Evzo Facebook Pages AMERICA
 
 # Schedule the workflow to run at 3 AM UTC daily
 on:
-  schedule:
-    - cron: '0 13 * * *'
+  # schedule:
+  #   - cron: '0 13 * * *'
   workflow_dispatch: # allows manual trigger too
 
 jobs:

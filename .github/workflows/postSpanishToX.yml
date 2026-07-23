@@ -1,4 +1,4 @@
-name: Post Spanish Daily Gospel SP to X Workflow
+name: Post Spanish Daily Gospel SP to X Workflow.
 
 on:
   schedule:

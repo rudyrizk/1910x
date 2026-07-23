@@ -1,4 +1,4 @@
-name: Post Daily Gospel AM to X Workflow
+name: Post Daily Gospel AM to X Workflow.
 
 on:
   schedule:

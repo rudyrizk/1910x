@@ -58,7 +58,7 @@ def fetch_content():
         print("Failed to retrieve content.")
         return None
 
-# Function to fetch content from a URL
+# Function to fetch content from a URL.
 def fetch_content(url):
     # Send GET request to the URL
     response = requests.get(url)

@@ -1,4 +1,4 @@
-name: Post MAA Gospek to X Workflow
+name: Post MAA Gospek to X Workflow.
 
 on:
   schedule:
